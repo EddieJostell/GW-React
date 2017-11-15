@@ -27,3 +27,13 @@
     transform: rotate(0deg); }
   to {
     transform: rotate(360deg); } }
+
+.map-icon-label {
+  position: absolute; }
+
+.map-icon-label .map-icon {
+  font-size: 24px;
+  color: #949FA0;
+  line-height: 48px;
+  text-align: center;
+  white-space: nowrap; }
