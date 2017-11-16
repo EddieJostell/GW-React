@@ -1,48 +1,63 @@
 import React, { Component } from 'react';
-import { GoogleMapLoader, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import country_capitals from '../../country_capitals.json';
+
 
 class MyMapComponent extends Component {
 
     state = {
-        GoogleMap: '',
-        worldCapital: [],
-        
+        //isOpen: false,
+        worldCapitals: []
     }
 
     componentDidMount() {
-       // this.getLatLng();
+        //this.getLatLng();
+        this.setState({ worldCapitals: country_capitals })
     }
 
-    getLatLng() {
-        console.log(country_capitals);
 
-        for (var key in country_capitals) {
-            if (country_capitals.hasOwnProperty(key)) {
-                var element = country_capitals[key];
-                var lat = parseFloat(element.CapitalLatitude);
-                var lng = parseFloat(element.CapitalLongitude);
-                /*  element.CapitalName, element.CountryName */
-            }
-            //console.log(lat, lng);
-            this.setState({ worldCapital: country_capitals })
-            
+
+    onMarkerClick(mark) {
+        console.log(mark.showInfo);
+        console.log("WORKING?!?!");
+        if (mark.showInfo === false) {
+            console.log("IM IN HERE!")
+            mark.showInfo = true;
+        } else if (mark.showInfo === true) {
+            console.log("AND IM IN HERE ASWELL AT SOME POINT")
+            mark.showInfo = false;
         }
-
-        console.log(this.state.worldCapital);
-       
-    }
+    } 
 
 
     render() {
-        
-         var worldMarkers =  country_capitals.map((marker, i) => { return <Marker key={i} 
-         position={{ lat: parseFloat(marker.CapitalLatitude), lng: parseFloat(marker.CapitalLongitude) }} 
-         name={{ title: marker.CapitalName}}
-         >
-         </Marker> })
-        
-        
+
+        const worldMarkers = this.state.worldCapitals.map((marker, i) => {
+            const mark = {
+                position: { lat: parseFloat(marker.CapitalLatitude), 
+                lng: parseFloat(marker.CapitalLongitude)
+                },
+                country: marker.CountryName,
+                title: marker.CapitalName,
+                showInfo: false,
+                id: marker.CapitalName
+            }
+            return <Marker key={i}
+            onClick={() => this.onMarkerClick(mark)}
+            {...mark}
+            >
+                {mark.showInfo && (
+                    <InfoWindow
+                    onCloseClick={() => this.onMarkerClick(mark)}
+                    >
+                        <div>
+                            <h2>{mark.title}</h2>
+
+                        </div>
+                    </InfoWindow>
+                )}
+            </Marker>
+        })
 
         const darkStyle = [
             {
@@ -216,20 +231,30 @@ class MyMapComponent extends Component {
                 defaultZoom={this.props.zoom}
                 defaultCenter={this.props.center}
                 defaultOptions={{ styles: darkStyle }}
-    
+
             >
                 {worldMarkers}
-                
-                {/* <Marker
-                   
-                    position={{ lat: 52.520007, lng: 13.404954 }} 
-                    
-                >
-
-                </Marker> */}
+                {/* {markers} */}
             </GoogleMap>
         )
     }
 }
 
 export default withGoogleMap(MyMapComponent);
+
+/* position={{ lat: parseFloat(marker.CapitalLatitude), lng: parseFloat(marker.CapitalLongitude) }} */
+                /* onClick={this.onMarkerClick} */
+/*  {this.state.isOpen && <InfoWindow onCloseClick={this.onMarkerClick}> marker.i </InfoWindow>} */ 
+
+
+       /* 
+                const markers = this.props.markers.map((mark, i) => {
+                    const marker = {
+                        position: {
+                            lat: 52.520007,
+                            lng: 13.404954 
+                        },
+                        title: "MY MARKER!",
+                    }
+                    return <Marker key={i} {...marker}/>
+                }) */

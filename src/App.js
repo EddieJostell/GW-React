@@ -8,15 +8,28 @@ import './sass/App.css';
 class App extends Component {
 
   state = {
-    markers: [{
-      position: {
-        lat: 52.520007,
-        lng: 13.404954,
-      }
-    }]
+    worldCap: [],
+    isOpen: false,
+  }
+
+
+  componentDidMount() {
+    this.setState({ worldCap: country_capitals })
+
   }
 
   render() {
+
+  
+    
+  /*   const markers = [
+      {
+        location: {
+          lat: 52.520007, 
+          lng: 13.404954 
+        }
+      }
+    ] */
 
    
     return (
@@ -24,10 +37,10 @@ class App extends Component {
         <div style={{ width: "auto", height: 1000 }}>
           <MyMapComponent
             center={{ lat: 52.520007, lng: 13.404954 }}
+           /*  markers={markers} */
             zoom={5}
             containerElement={<div style={{ height: '100%' }} />}
             mapElement={<div style={{ height: '100%' }} />}
-            markers={this.state.markers} 
           />
         </div>
       </div>
