@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import country_capitals from '../../country_capitals.json';
+import MyMapMarker from '../MyMapMarker/MyMapMarker';
 
 
 class MyMapComponent extends Component {
 
     state = {
-        //isOpen: false,
+        showInfo: false,
         worldCapitals: []
     }
 
@@ -17,48 +18,54 @@ class MyMapComponent extends Component {
 
 
 
-    onMarkerClick(mark) {
-        console.log(mark.showInfo);
-        console.log("WORKING?!?!");
+    onMarkerClick(mark, i) {
+        console.log("CLICK ON MARKER");
+        console.log("Here showInfo is:", mark.showInfo);
+
         if (mark.showInfo === false) {
+            console.log("mark.id", mark.id)
+            console.log("i", i)
             console.log("IM IN HERE!")
-            mark.showInfo = true;
-        } else if (mark.showInfo === true) {
-            console.log("AND IM IN HERE ASWELL AT SOME POINT")
-            mark.showInfo = false;
+            console.log("Before set to true:", mark.showInfo);
+            if(mark.id === i) {
+                this.setState({ showInfo: !this.state.showInfo })
+            }
+            //this.setState({ showInfo: !this.state.showInfo })
+            console.log(mark);
+            //mark.showInfo = true;
+            console.log("After set to true:", mark.showInfo);
         }
-    } 
+        else if (mark.showInfo === true) {
+            console.log("mark.id", mark.id)
+            console.log("i", i)
+            console.log("AND IM IN HERE ASWELL AT SOME POINT")
+            console.log("Before set to false:", mark.showInfo);
+            if(mark.id === i){
+                this.setState({ showInfo: !this.state.showInfo })
+            }
+            //this.setState({ showInfo: !this.state.showInfo })
+            //mark.showInfo = false;
+            console.log("After set to false:", mark.showInfo);
+        }
+    }
 
 
     render() {
-
         const worldMarkers = this.state.worldCapitals.map((marker, i) => {
             const mark = {
-                position: { lat: parseFloat(marker.CapitalLatitude), 
-                lng: parseFloat(marker.CapitalLongitude)
+                position: {
+                    lat: parseFloat(marker.CapitalLatitude),
+                    lng: parseFloat(marker.CapitalLongitude)
                 },
                 country: marker.CountryName,
                 title: marker.CapitalName,
-                showInfo: false,
-                id: marker.CapitalName
+                showInfo: this.state.showInfo,
+                id: i,
             }
-            return <Marker key={i}
-            onClick={() => this.onMarkerClick(mark)}
+            return <MyMapMarker key={i}
             {...mark}
-            >
-                {mark.showInfo && (
-                    <InfoWindow
-                    onCloseClick={() => this.onMarkerClick(mark)}
-                    >
-                        <div>
-                            <h2>{mark.title}</h2>
-
-                        </div>
-                    </InfoWindow>
-                )}
-            </Marker>
-        })
-
+                 />
+        });
         const darkStyle = [
             {
                 "featureType": "all",
@@ -244,7 +251,7 @@ export default withGoogleMap(MyMapComponent);
 
 /* position={{ lat: parseFloat(marker.CapitalLatitude), lng: parseFloat(marker.CapitalLongitude) }} */
                 /* onClick={this.onMarkerClick} */
-/*  {this.state.isOpen && <InfoWindow onCloseClick={this.onMarkerClick}> marker.i </InfoWindow>} */ 
+/*  {this.state.isOpen && <InfoWindow onCloseClick={this.onMarkerClick}> marker.i </InfoWindow>} */
 
 
        /* 
@@ -258,3 +265,4 @@ export default withGoogleMap(MyMapComponent);
                     }
                     return <Marker key={i} {...marker}/>
                 }) */
+                
