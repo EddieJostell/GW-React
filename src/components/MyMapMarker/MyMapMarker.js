@@ -21,7 +21,7 @@ class MyMapMarker extends Component {
         })
     }
 
-    /* getLatLong() {
+    getLatLong() {
         for (var cord in country_capitals) {
             if (country_capitals.hasOwnProperty(cord)) {
                 let cordinates = country_capitals[cord];
@@ -29,26 +29,28 @@ class MyMapMarker extends Component {
                 var lat = parseFloat(cordinates.CapitalLatitude);
                 var long = parseFloat(cordinates.CapitalLongitude);
                 //console.log(lat, long)
-                //this.getWeatherFromAPI(lat, long);
+                this.getWeatherFromAPI(lat, long);
             }
         }
-    } */
+    }
 
-  /*   getWeatherFromAPI(lat, long) {
+    getWeatherFromAPI(lat, long) {
+        console.log(lat, long);
       
         let weather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&APPID=006595c752436e02740e9d8ff6b6cd05`; //`sweden.json` https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&APPID=006595c752436e02740e9d8ff6b6cd05 | eb3bc19f92d9df047f452e1230df445c
         fetch(weather)
             .then(response => response.json())
             .then(data => {
  
-                console.log(data);
+                //console.log(data);
                 this.setState({ currentWeather: data });
             })
  
             .catch(error => console.log(error))
-    } */
+    }
 
     toggleShowInfo = () => {
+        //this.getLatLong();
         this.setState({ showInfo: !this.state.showInfo });
     }
 
@@ -58,7 +60,7 @@ class MyMapMarker extends Component {
 
     render() {
 
-        const weather = sweden.map((w, i) => {
+        const weather = this.state.currentWeather.map((w, i) => {
             return <InfoWindowContent key={i}
                 name={w.name}
                 temp={w.main.temp}
