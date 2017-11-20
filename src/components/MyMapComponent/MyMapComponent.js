@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import { withGoogleMap, GoogleMap } from 'react-google-maps';
 import country_capitals from '../../country_capitals.json';
 import MyMapMarker from '../MyMapMarker/MyMapMarker';
 
@@ -18,36 +18,7 @@ class MyMapComponent extends Component {
 
 
 
-    onMarkerClick(mark, i) {
-        console.log("CLICK ON MARKER");
-        console.log("Here showInfo is:", mark.showInfo);
-
-        if (mark.showInfo === false) {
-            console.log("mark.id", mark.id)
-            console.log("i", i)
-            console.log("IM IN HERE!")
-            console.log("Before set to true:", mark.showInfo);
-            if(mark.id === i) {
-                this.setState({ showInfo: !this.state.showInfo })
-            }
-            //this.setState({ showInfo: !this.state.showInfo })
-            console.log(mark);
-            //mark.showInfo = true;
-            console.log("After set to true:", mark.showInfo);
-        }
-        else if (mark.showInfo === true) {
-            console.log("mark.id", mark.id)
-            console.log("i", i)
-            console.log("AND IM IN HERE ASWELL AT SOME POINT")
-            console.log("Before set to false:", mark.showInfo);
-            if(mark.id === i){
-                this.setState({ showInfo: !this.state.showInfo })
-            }
-            //this.setState({ showInfo: !this.state.showInfo })
-            //mark.showInfo = false;
-            console.log("After set to false:", mark.showInfo);
-        }
-    }
+ 
 
 
     render() {
@@ -266,3 +237,34 @@ export default withGoogleMap(MyMapComponent);
                     return <Marker key={i} {...marker}/>
                 }) */
                 
+
+                   /* onMarkerClick(mark, i) {
+        console.log("CLICK ON MARKER");
+        console.log("Here showInfo is:", mark.showInfo);
+
+        if (mark.showInfo === false) {
+            console.log("mark.id", mark.id)
+            console.log("i", i)
+            console.log("IM IN HERE!")
+            console.log("Before set to true:", mark.showInfo);
+            if(mark.id === i) {
+                this.setState({ showInfo: !this.state.showInfo })
+            }
+            //this.setState({ showInfo: !this.state.showInfo })
+            console.log(mark);
+            //mark.showInfo = true;
+            console.log("After set to true:", mark.showInfo);
+        }
+        else if (mark.showInfo === true) {
+            console.log("mark.id", mark.id)
+            console.log("i", i)
+            console.log("AND IM IN HERE ASWELL AT SOME POINT")
+            console.log("Before set to false:", mark.showInfo);
+            if(mark.id === i){
+                this.setState({ showInfo: !this.state.showInfo })
+            }
+            //this.setState({ showInfo: !this.state.showInfo })
+            //mark.showInfo = false;
+            console.log("After set to false:", mark.showInfo);
+        }
+    } */
