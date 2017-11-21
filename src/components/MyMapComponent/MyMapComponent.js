@@ -12,8 +12,7 @@ class MyMapComponent extends Component {
     }
 
     componentDidMount() {
-        //this.getLatLng();
-        this.setState({ worldCapitals: country_capitals })
+        this.setState({ worldCapitals: country_capitals });
     }
 
 
@@ -218,25 +217,7 @@ class MyMapComponent extends Component {
     }
 }
 
-export default withGoogleMap(MyMapComponent);
-
-/* position={{ lat: parseFloat(marker.CapitalLatitude), lng: parseFloat(marker.CapitalLongitude) }} */
-                /* onClick={this.onMarkerClick} */
-/*  {this.state.isOpen && <InfoWindow onCloseClick={this.onMarkerClick}> marker.i </InfoWindow>} */
-
-
-       /* 
-                const markers = this.props.markers.map((mark, i) => {
-                    const marker = {
-                        position: {
-                            lat: 52.520007,
-                            lng: 13.404954 
-                        },
-                        title: "MY MARKER!",
-                    }
-                    return <Marker key={i} {...marker}/>
-                }) */
-                
+export default withGoogleMap(MyMapComponent); 
 
                    /* onMarkerClick(mark, i) {
         console.log("CLICK ON MARKER");
