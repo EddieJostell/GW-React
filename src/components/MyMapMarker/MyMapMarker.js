@@ -9,18 +9,19 @@ class MyMapMarker extends Component {
     state = {
         showInfo: false,
         currentWeather: [],
+        dailyForecast: [],
         fiveDayForecast: [],
     }
 
     componentDidMount() {
-        /* this.setState({
-            currentWeather: sweden
-        }) */
+        this.setState({
+            currentWeather: sweden, dailyForecast: sweden
+        })
+        this.props.callbackFromMap(sweden);
     }
 
-    getWeatherFromAPI() {
-      console.log("In here on marker click!");
-       
+    getWeatherFromAPI = () => {
+    
         var lat = this.props.position.lat;
         var long = this.props.position.lng;
         var wData = [];
@@ -34,29 +35,13 @@ class MyMapMarker extends Component {
                 console.log(wData);
                 //We need to create a new InfoWindow because of this https://github.com/tomchentw/react-google-maps/issues/696
                 this.setState({ showInfo: false }, () => this.setState({ showInfo: true, currentWeather: wData }) );
+                
             })
             .catch(error => console.log(error))
-            //this.renderWeather();
     }
 
-   /*  renderWeather() {
-        console.log("In here after marker click!")
-       return this.state.currentWeather.map((w, i) =>
-            <InfoWindowContent key={i}
-                name={w.name}
-                temp={w.main.temp}
-                windSpeed={w.wind.speed}
-                windDeg={w.wind.deg}
-                humidity={w.main.humidity}
-                weather={w.weather[0].main}
-                wicon={w.weather[0].id}
-            />
-        );
-        
-    } */
-
     toggleShowInfo = () => {
-        this.getWeatherFromAPI();
+        //this.getWeatherFromAPI();
        
         this.setState({ showInfo: !this.state.showInfo });
     }
@@ -66,7 +51,7 @@ class MyMapMarker extends Component {
     }
 
     render() {
-        
+       
         const weather = this.state.currentWeather.map((w, i) => 
             <InfoWindowContent key={i}
                 name={w.name}
@@ -84,15 +69,15 @@ class MyMapMarker extends Component {
             <Marker
                 onClick={this.toggleShowInfo}
                 {...this.props}
+                dailyForecast={this.props.dailyForecast}
             >
                 {this.state.showInfo && (
                     <InfoWindow
                         onCloseClick={this.closeInfo}
                     >
                         <div>
-                            <h2>{this.props.title}</h2>
+                            <a onClick={this.props.showBigWindow}><h3>{this.props.title}</h3></a>
                             {weather}
-                          {/*  {this.renderWeather(console.log("Rendering before being a callback!"))} */}
                         </div>
                     </InfoWindow>
                 )}

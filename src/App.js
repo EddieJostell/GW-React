@@ -20,29 +20,14 @@ class App extends Component {
 
   render() {
 
-  
-    
-  /*   const markers = [
-      {
-        location: {
-          lat: 52.520007, 
-          lng: 13.404954 
-        }
-      }
-    ] */
-
-   
     return (
       <div className="App">
-        <div style={{ width: "auto", height: '100vh' }}>
           <MyMapComponent
             center={{ lat: 52.520007, lng: 13.404954 }}
-           /*  markers={markers} */
             zoom={5}
             containerElement={<div style={{ height: '100vh', width: 'auto' }} />}
             mapElement={<div style={{ height: '100vh', width: '100vw' }} />}
           />
-        </div>
       </div>
     );
   }

@@ -5,7 +5,7 @@ function InfoWindowContent(props) {
 
     return (
         <div className="window">
-            <a href="https://www.google.com" target="_blank rel=noopener noreferrer" className="divBtn" id="button" onClick={props.showMore}> <h4 className="para">{props.name}</h4></a>
+            {/* <a href="https://www.google.com" target="_blank rel=noopener noreferrer" className="divBtn" id="button" onClick={props.showMore}> <h4 className="para">{props.name}</h4></a> */}
             <h4 className="title">Temperature: {props.temp.toFixed(0)} °C</h4>
             <h4 className="para">Wind: {props.windSpeed.toFixed(0)} m/s | {props.windDeg} degrees</h4>
             <h4 className="para">Humidity: {props.humidity}%</h4>

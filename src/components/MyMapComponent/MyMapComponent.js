@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap } from 'react-google-maps';
 import country_capitals from '../../country_capitals.json';
 import MyMapMarker from '../MyMapMarker/MyMapMarker';
+import ForecastContent from '../ForecastContent/ForecastContent';
 
 
 class MyMapComponent extends Component {
 
     state = {
         showInfo: false,
-        worldCapitals: []
+        worldCapitals: [],
+        showMore: false,
+        dailyForecast: [],
+        showAddWeather: false
     }
 
     componentDidMount() {
@@ -16,26 +20,16 @@ class MyMapComponent extends Component {
     }
 
 
+    leCallback = (datafromMarker) => {
+        this.setState({ dailyForecast: datafromMarker });
+    }
 
- 
-
+    onClick = () => {
+        console.log("I REACHED HERE FROM ANOTHER COMPONENT!!");
+        
+    }
 
     render() {
-        const worldMarkers = this.state.worldCapitals.map((marker, i) => {
-            const mark = {
-                position: {
-                    lat: parseFloat(marker.CapitalLatitude),
-                    lng: parseFloat(marker.CapitalLongitude)
-                },
-                country: marker.CountryName,
-                title: marker.CapitalName,
-                showInfo: this.state.showInfo,
-                id: i,
-            }
-            return <MyMapMarker key={i}
-            {...mark}
-                 />
-        });
         const darkStyle = [
             {
                 "featureType": "all",
@@ -203,6 +197,37 @@ class MyMapComponent extends Component {
                 ]
             }
         ]
+        
+        const worldMarkers = this.state.worldCapitals.map((marker, i) => {
+            const mark = {
+                position: {
+                    lat: parseFloat(marker.CapitalLatitude),
+                    lng: parseFloat(marker.CapitalLongitude)
+                },
+                country: marker.CountryName,
+                title: marker.CapitalName,
+                showInfo: this.state.showInfo,
+                id: i,
+            }
+            return <MyMapMarker key={i}
+                {...mark}
+                showBigWindow={this.onClick}
+               callbackFromMap={this.leCallback}
+            />
+        });
+
+        const extendedContent = this.state.dailyForecast.map((day, i ) => 
+            <ForecastContent key={i}
+                name={day.name}
+                temp={day.main.temp}
+                windSpeed={day.wind.speed}
+                windDeg={day.wind.deg}
+                humidity={day.main.humidity}
+                weather={day.weather[0].main}
+                wicon={day.weather[0].id}
+               />
+        )
+
         return (
             <GoogleMap
                 defaultZoom={this.props.zoom}
@@ -211,13 +236,13 @@ class MyMapComponent extends Component {
 
             >
                 {worldMarkers}
-                {/* {markers} */}
+                {extendedContent}
             </GoogleMap>
         )
     }
 }
 
-export default withGoogleMap(MyMapComponent); 
+export default withGoogleMap(MyMapComponent);
 
                    /* onMarkerClick(mark, i) {
         console.log("CLICK ON MARKER");
