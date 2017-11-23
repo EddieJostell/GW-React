@@ -1,0 +1,15 @@
+@mixin STAR() {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@mixin Font-family() {
+    font-family: 'Roboto';
+}
+
+@mixin Flex-rowSpace() {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap } from 'react-google-maps';
 import country_capitals from '../../country_capitals.json';
 import MyMapMarker from '../MyMapMarker/MyMapMarker';
-import ForecastContent from '../ForecastContent/ForecastContent';
+//import ForecastContent from '../ForecastContent/ForecastContent';
 
 
 class MyMapComponent extends Component {
@@ -12,7 +12,6 @@ class MyMapComponent extends Component {
         worldCapitals: [],
         showMore: false,
         dailyForecast: [],
-        showAddWeather: false
     }
 
     componentDidMount() {
@@ -20,14 +19,7 @@ class MyMapComponent extends Component {
     }
 
 
-    leCallback = (datafromMarker) => {
-        this.setState({ dailyForecast: datafromMarker });
-    }
-
-    onClick = () => {
-        console.log("I REACHED HERE FROM ANOTHER COMPONENT!!");
-        
-    }
+ 
 
     render() {
         const darkStyle = [
@@ -197,7 +189,8 @@ class MyMapComponent extends Component {
                 ]
             }
         ]
-        
+
+
         const worldMarkers = this.state.worldCapitals.map((marker, i) => {
             const mark = {
                 position: {
@@ -211,12 +204,12 @@ class MyMapComponent extends Component {
             }
             return <MyMapMarker key={i}
                 {...mark}
-                showBigWindow={this.onClick}
-               callbackFromMap={this.leCallback}
+                displayContent={this.props.displayContent}
+                /* callbackFromMap={this.props.callbackFromMap} */
             />
         });
 
-        const extendedContent = this.state.dailyForecast.map((day, i ) => 
+    /*     const extendedContent = this.state.dailyForecast.map((day, i) =>
             <ForecastContent key={i}
                 name={day.name}
                 temp={day.main.temp}
@@ -225,8 +218,8 @@ class MyMapComponent extends Component {
                 humidity={day.main.humidity}
                 weather={day.weather[0].main}
                 wicon={day.weather[0].id}
-               />
-        )
+            />
+        ) */
 
         return (
             <GoogleMap
@@ -236,7 +229,6 @@ class MyMapComponent extends Component {
 
             >
                 {worldMarkers}
-                {extendedContent}
             </GoogleMap>
         )
     }
