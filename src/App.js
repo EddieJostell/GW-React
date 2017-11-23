@@ -57,7 +57,7 @@ class App extends Component {
 
   }
 
-  RedBoxFun = () => {
+/*   RedBoxFun = () => {
     if (this.state.showMoreWeather === true) {
       this.setState({ showMoreWeather: false })
       //console.log("ShowMoreWeather State changed to: ", this.state.showMoreWeather);
@@ -67,6 +67,10 @@ class App extends Component {
       //console.log("ShowMoreWeather State changed to: ", this.state.showMoreWeather);
     }
 
+  } */
+
+  hideWindow = () => {
+    this.setState({ showMoreWeather: false })
   }
 
   render() {
@@ -130,7 +134,7 @@ class App extends Component {
             </div>
 
             <div className="btnDiv">
-              <a aria-label="Close" className="backBtn"><h5>[&times;]</h5></a>
+              <a aria-label="Close" onClick={this.hideWindow} className="backBtn"><h5>[&times;]</h5></a>
             </div>
 
           </div>
