@@ -1,12 +1,5 @@
+
 function showHidePopup() {
-
-    $(".addInfo").fadeIn(300, function () {
-        $(this).focus();
-    });
-
-    $('.backBtn').click(function () {
-        $("#capital").fadeOut(300);
-    });
 
     $(document).mouseup(function (e) {
         var container = $(".window");
@@ -18,3 +11,5 @@ function showHidePopup() {
         };
     });
 }
+
+export default showHidePopup;

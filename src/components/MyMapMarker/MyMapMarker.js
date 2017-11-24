@@ -11,9 +11,13 @@ class MyMapMarker extends Component {
         currentWeather: [],
         dailyForecast: [],
         fiveDayForecast: [],
+        
     }
 
     componentDidMount() {
+
+        
+
         var mockData = [];
         for (var key in forecast_sthlm) {
             if (forecast_sthlm.hasOwnProperty(key)) {
@@ -58,7 +62,7 @@ class MyMapMarker extends Component {
             .catch(error => console.log(error))
     }
 
-    get5dayForecastFromAPI = () => {
+/*     get5dayForecastFromAPI = () => {
         var lat = this.props.position.lat;
         var long = this.props.position.lng;
         var fData = [];
@@ -86,7 +90,7 @@ class MyMapMarker extends Component {
 
             })
             .catch(error => console.log(error))
-    }
+    } */
 
     toggleShowInfo = () => {
         /* this.getWeatherFromAPI();
@@ -122,14 +126,15 @@ class MyMapMarker extends Component {
             <Marker
                 onClick={this.toggleShowInfo}
                 {...this.props}
-                dailyForecast={this.props.dailyForecast}
+                //dailyForecast={this.props.dailyForecast}
+                
             >
                 {this.state.showInfo && (
                     <InfoWindow
                         onCloseClick={this.closeInfo}
                     >
                         <div>
-                            <a className="title" onClick={() => this.props.displayContent(this.state.dailyForecast, this.state.fiveDayForecast)}><h3>{this.props.title}-CLICK ME"</h3></a>
+                            <a className="title" onClick={() => this.props.displayContent(this.state.dailyForecast, this.props.position.lat, this.props.position.lng)}><h3>{this.props.title}-CLICK ME"</h3></a>
                             {weather}
                         </div>
                     </InfoWindow>

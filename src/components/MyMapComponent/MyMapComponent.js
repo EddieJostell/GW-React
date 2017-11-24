@@ -11,10 +11,12 @@ class MyMapComponent extends Component {
         showInfo: false,
         worldCapitals: [],
         showMore: false,
+        /* allMyMarkers: [] */
     }
 
     componentDidMount() {
         this.setState({ worldCapitals: country_capitals });
+
     }
 
     render() {
@@ -200,8 +202,8 @@ class MyMapComponent extends Component {
             }
             return <MyMapMarker key={i}
                 {...mark}
+                
                 displayContent={this.props.displayContent}
-            /* callbackFromMap={this.props.callbackFromMap} */
             />
         });
 
