@@ -12,28 +12,35 @@ class MyMapMarker extends Component {
         dailyForecast: [],
         fiveDayForecast: [],
     }
-        
+
     componentDidMount() {
         var mockData = [];
         for (var key in forecast_sthlm) {
             if (forecast_sthlm.hasOwnProperty(key)) {
                 var element = forecast_sthlm[key];
                 var fiver = element.list;
-                mockData.push(fiver);
+
+                for (var akey in fiver) {
+                    if (fiver.hasOwnProperty(akey)) {
+                        var FIVE = fiver[akey];
+                        mockData.push(FIVE);
+                    }
+                }
+
             }
         }
-            console.log(mockData);
+        //console.log(mockData);
         this.setState({
-            currentWeather: sweden, 
+            currentWeather: sweden,
             dailyForecast: sweden,
             fiveDayForecast: mockData
 
         })
-       // this.props.callbackFromMap(sweden, forecast_sthlm);
+        // this.props.callbackFromMap(sweden, forecast_sthlm);
     }
 
     getWeatherFromAPI = () => {
-    
+
         var lat = this.props.position.lat;
         var long = this.props.position.lng;
         var wData = [];
@@ -46,7 +53,7 @@ class MyMapMarker extends Component {
                 wData.push(data);
                 console.log(wData);
                 //We need to create a new InfoWindow because of this https://github.com/tomchentw/react-google-maps/issues/696
-                this.setState({ showInfo: false }, () => this.setState({ showInfo: true, currentWeather: wData, dailyForecast: wData }) );
+                this.setState({ showInfo: false }, () => this.setState({ showInfo: true, currentWeather: wData, dailyForecast: wData }));
             })
             .catch(error => console.log(error))
     }
@@ -61,23 +68,29 @@ class MyMapMarker extends Component {
             .then(response => response.json())
             .then(data => {
                 //console.log(data);
-                
+
                 for (var key in data) {
                     if (data.hasOwnProperty(key)) {
                         var element = data[key];
                         var fiver = element.list;
-                        fData.push(element.list);
+
+                        for (var akey in fiver) {
+                            if (fiver.hasOwnProperty(akey)) {
+                                var FIVE = fiver[akey];
+                                fData.push(FIVE);
+                            }
+                        }
                     }
                 }
-                this.setState({ fiveDayForecast: fData });
-                
+                this.setState({ showInfo: false }, () => this.setState({ showInfo: true, fiveDayForecast: fData }));
+
             })
             .catch(error => console.log(error))
     }
 
     toggleShowInfo = () => {
-        //this.getWeatherFromAPI();
-       
+        /* this.getWeatherFromAPI();
+        this.get5dayForecastFromAPI(); */
         this.setState({ showInfo: !this.state.showInfo });
     }
 
@@ -85,22 +98,14 @@ class MyMapMarker extends Component {
         this.setState({ showInfo: false })
     }
 
-
-    showMeMore = () => {
-        console.log("I REACHED HERE FROM ANOTHER COMPONENT!!");
-        //this.setState({ showMoreWeather: true }), () => this.setState({ showMoreWeather: false })
-        console.log("ShowMoreWeather State changed to: ", this.state.showMoreWeather);
-        //this.RedBoxFun();
-    }
-
     componentWillReceiveProps() {
-        if(this.state.showInfo) {
+        if (this.state.showInfo) {
             this.setState({ showInfo: false }, () => this.setState({ showInfo: true }))
         }
     }
     render() {
-       
-        const weather = this.state.currentWeather.map((w, i) => 
+
+        const weather = this.state.currentWeather.map((w, i) =>
             <InfoWindowContent key={i}
                 name={w.name}
                 temp={w.main.temp}
@@ -113,7 +118,7 @@ class MyMapMarker extends Component {
         );
 
 
-        return(
+        return (
             <Marker
                 onClick={this.toggleShowInfo}
                 {...this.props}

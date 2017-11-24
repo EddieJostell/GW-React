@@ -18,63 +18,43 @@ class App extends Component {
   componentDidMount() {
 
   }
-  
-    leCallback = (dayCast, fiveDayCast) => {
-      // console.log(fiveDayCast);
-      var newFiverCast = [];
-  
-      for (var key in fiveDayCast) {
-        if (fiveDayCast.hasOwnProperty(key)) {
-          var element = fiveDayCast[key];
-          var fiver = element.list;
-          //newFiverCast.push(fiver);
-        }
-      }
-      //console.log(newFiverCast)
-      this.setState({
-        dailyForecast: dayCast,
-        fiveDayForecast: newFiverCast
-  
-      });
-      //console.log(fiveDayCast);
-    }
 
   showMeMore = (dayForeCast, fiverForecast) => {
     console.log("I REACHED HERE FROM ANOTHER COMPONENT!!");
-      
-  /*     for (var key in fiveForecast) {
-        if (fiveForecast.hasOwnProperty(key)) {
-          var element = fiveForecast[key];
-          var fiver = element.list;
-          //newFiverCast.push(fiver);
-        }
-      } */
-   
-    this.setState({ 
-        dailyForecast: dayForeCast,
-        fiveDayForecast: fiverForecast,
-        showMoreWeather: true })
+
+    /*     for (var key in fiveForecast) {
+          if (fiveForecast.hasOwnProperty(key)) {
+            var element = fiveForecast[key];
+            var fiver = element.list;
+            //newFiverCast.push(fiver);
+          }
+        } */
+
+    this.setState({
+      dailyForecast: dayForeCast,
+      fiveDayForecast: fiverForecast,
+      showMoreWeather: true
+    })
 
   }
 
-/*   RedBoxFun = () => {
-    if (this.state.showMoreWeather === true) {
-      this.setState({ showMoreWeather: false })
-      //console.log("ShowMoreWeather State changed to: ", this.state.showMoreWeather);
-    }
-    else {
-      this.setState({ showMoreWeather: true })
-      //console.log("ShowMoreWeather State changed to: ", this.state.showMoreWeather);
-    }
-
-  } */
+  /*   RedBoxFun = () => {
+      if (this.state.showMoreWeather === true) {
+        this.setState({ showMoreWeather: false })
+        //console.log("ShowMoreWeather State changed to: ", this.state.showMoreWeather);
+      }
+      else {
+        this.setState({ showMoreWeather: true })
+        //console.log("ShowMoreWeather State changed to: ", this.state.showMoreWeather);
+      }
+  
+    } */
 
   hideWindow = () => {
     this.setState({ showMoreWeather: false })
   }
 
   render() {
-    console.log(this.state.fiveDayForecast);
 
     const extendedContent = this.state.dailyForecast.map((day, i) =>
       <ForecastContent key={i}
@@ -88,40 +68,33 @@ class App extends Component {
       />
     )
 
-    //console.log(this.state.fiveDayForecast);
-
-  /*   const fiveDayContent = this.state.fiveDayForecast.map((five, i) =>
-      <FiveDayForecastContent key={i}
-        dt_txt={five.dt_txt}
-        //description={five.weather[0].description} 
-        temp={five.main.temp}
-        humidity={five.main.humidity}
-        windSpeed={five.wind.speed}
-        windDeg={five.wind.deg}
-      //wicon={five.weather[0].id} 
-      />
-    ) */
-
-
+    var fiveDay = [];
+    for (var i = 0; i < this.state.fiveDayForecast.length; i += 8) {
+      var five = this.state.fiveDayForecast[i];
+     fiveDay.push(
+        <div className="forecastDiv">
+          <FiveDayForecastContent key={i}
+            dt_txt={five.dt_txt}
+            description={five.weather[0].description}
+            temp={five.main.temp}
+            humidity={five.main.humidity}
+            windSpeed={five.wind.speed}
+            windDeg={five.wind.deg}
+            wicon={five.weather[0].id}
+          />
+        </div>)
+    }
+    
     return (
       <div className="App">
         <MyMapComponent
           center={{ lat: 52.520007, lng: 13.404954 }}
           zoom={5}
-          containerElement={<div style={{ height: '100vh', width: 'auto', backgroundColor: 'black' }} />}
+          containerElement={<div style={{ height: 'auto', width: '100%' }} />}
           mapElement={<div style={{ height: '100vh', width: '100vw' }} />}
           /* callbackFromMap={this.leCallback} */
           displayContent={this.showMeMore}
         />
-
-        {/* this.state.showMoreWeather ? null : <div className="box">
-          <h1>THE BOX</h1>
-        </div> */}
-
-        {/*   <div className="box1">
-          <h1>BLUE BOX</h1>
-          <button className="boxBtn" onClick={this.RedBoxFun}> HEAL OR KILL THE BOX</button>
-        </div> */}
 
         {this.state.showMoreWeather ? <div className="addInfo" id="capital">
           <div className="flexme">
@@ -144,7 +117,7 @@ class App extends Component {
           </div>
 
           <div className="forecastDiv">
-            <h1>MORE CONTENT HERE!!</h1>
+           {fiveDay}
           </div>
         </div> : null}
 
@@ -154,3 +127,33 @@ class App extends Component {
 }
 
 export default App;
+
+  /*    leCallback = (dayCast, fiveDayCast) => {
+       // console.log(fiveDayCast);
+       var newFiverCast = [];
+   
+       for (var key in fiveDayCast) {
+         if (fiveDayCast.hasOwnProperty(key)) {
+           var element = fiveDayCast[key];
+           var fiver = element.list;
+           //newFiverCast.push(fiver);
+         }
+       }
+       //console.log(newFiverCast)
+       this.setState({
+         dailyForecast: dayCast,
+         fiveDayForecast: newFiverCast
+   
+       });
+       //console.log(fiveDayCast);
+     } */
+
+
+/* this.state.showMoreWeather ? null : <div className="box">
+          <h1>THE BOX</h1>
+        </div> */
+
+/*   <div className="box1">
+          <h1>BLUE BOX</h1>
+          <button className="boxBtn" onClick={this.RedBoxFun}> HEAL OR KILL THE BOX</button>
+        </div> */

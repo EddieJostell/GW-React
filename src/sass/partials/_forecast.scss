@@ -47,6 +47,31 @@
         }
 }
 
+ .forecastDiv {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        
+       /*  @media screen and (max-width:750px) {
+            
+            //flex-direction: column;
+            
+        } */
+
+        .siteDiv {
+            padding: 10px;
+        }
+        
+        
+        .img1 {
+            max-width: 100%;
+            width: 18px;
+            height: 18px;
+        }
+        
+    }   
+
 
 
 
