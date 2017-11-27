@@ -16,7 +16,6 @@ class MyMapComponent extends Component {
 
     componentDidMount() {
         this.setState({ worldCapitals: country_capitals });
-
     }
 
     render() {
@@ -188,7 +187,6 @@ class MyMapComponent extends Component {
             }
         ]
 
-
         const worldMarkers = this.state.worldCapitals.map((marker, i) => {
             const mark = {
                 position: {
@@ -198,11 +196,10 @@ class MyMapComponent extends Component {
                 country: marker.CountryName,
                 title: marker.CapitalName,
                 showInfo: this.state.showInfo,
-                id: i,
+                id: i
             }
             return <MyMapMarker key={i}
                 {...mark}
-                
                 displayContent={this.props.displayContent}
             />
         });
