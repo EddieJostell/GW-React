@@ -196,7 +196,7 @@ class MyMapComponent extends Component {
                 country: marker.CountryName,
                 title: marker.CapitalName,
                 showInfo: this.state.showInfo,
-                id: i
+                id: marker.CapitalName
             }
             return <MyMapMarker key={i}
                 {...mark}

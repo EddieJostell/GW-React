@@ -5,7 +5,7 @@ function ForecastContent(props) {
     return(
         <div className="forecast">
             <div className="townNtemp">
-                <h1 className="">{props.name} </h1>
+                <h1 className="">{props.name}</h1>
                 <h2>{new Date().getDayFromDate()}</h2>
                 <h1 className=""><img className="img" src="../../img/thermo-light.png" alt="Temperature:" />{props.temp.toFixed(0)} °C</h1>
             </div>

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import FiveDayForecastContent from '../FiveDayForecastContent/FiveDayForecastContent';
-/* import forecast_sthlm from '../../forecast_sthlm.json'; */
-
 
 class FiveDayForecastLoader extends Component {
 

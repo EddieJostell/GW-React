@@ -3,6 +3,7 @@ import { Marker, InfoWindow } from "react-google-maps";
 import InfoWindowContent from "../InfoWindowContent/InfoWindowContent";
 import sweden from "../../sweden.json";
 import forecast_sthlm from "../../forecast_sthlm.json";
+import weatherfeatching, { getWeatherFromAPI } from '../../lib/weatherfeatching.js';
 
 class MyMapMarker extends Component {
     state = {
@@ -19,7 +20,7 @@ class MyMapMarker extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
+      
         this.setState({
         currentWeather: sweden,
         dailyForecast: sweden
@@ -28,17 +29,8 @@ class MyMapMarker extends Component {
 
     getWeatherFromAPI = () => {
         var lat = this.props.position.lat;
-        var long = this.props.position.lng;
-        var wData = [];
-
-        let weather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&APPID=006595c752436e02740e9d8ff6b6cd05`; 
-        // https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&APPID=006595c752436e02740e9d8ff6b6cd05 | eb3bc19f92d9df047f452e1230df445c
-        fetch(weather)
-        .then(response => response.json())
-        .then(data => {
-            //console.log(data);
-            wData.push(data);
-            console.log(wData);
+        var lng = this.props.position.lng;
+            getWeatherFromAPI(lat, lng).then((wData) =>  {
             //We need to create a new InfoWindow because of this https://github.com/tomchentw/react-google-maps/issues/696
             this.setState({ showInfo: false }, () =>
             this.setState({
@@ -79,7 +71,6 @@ class MyMapMarker extends Component {
         <Marker
             onClick={this.toggleShowInfo}
             {...this.props}
-            /* key={this.props.id} */
         >
             { this.state.showInfo && (
             <InfoWindow onCloseClick={this.closeInfo}>
@@ -91,9 +82,7 @@ class MyMapMarker extends Component {
                         this.state.dailyForecast,
                         this.props.title,
                         this.props.position.lat,
-                        this.props.position.lng,
-                        this.props.country,
-                        this.props.id
+                        this.props.position.lng
                     )}>
                     <h3>{this.props.title}-CLICK ME"</h3>
                 </a>
