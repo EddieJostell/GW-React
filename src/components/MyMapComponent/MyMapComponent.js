@@ -1,219 +1,219 @@
-import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap } from 'react-google-maps';
-import country_capitals from '../../country_capitals.json';
-import MyMapMarker from '../MyMapMarker/MyMapMarker';
-
-
+import React, { Component } from "react";
+import { withGoogleMap, GoogleMap } from "react-google-maps";
+import country_capitals from "../../country_capitals.json";
+import MyMapMarker from "../MyMapMarker/MyMapMarker";
 
 class MyMapComponent extends Component {
+  state = {
+    showInfo: false,
+    worldCapitals: [],
+    showMore: false
+    /* allMyMarkers: [] */
+  };
 
-    state = {
-        showInfo: false,
-        worldCapitals: [],
-        showMore: false,
-        /* allMyMarkers: [] */
-    }
+  componentDidMount() {
+    this.setState({ worldCapitals: country_capitals });
+  }
 
-    componentDidMount() {
-        this.setState({ worldCapitals: country_capitals });
-    }
-
-    render() {
-        const darkStyle = [
-            {
-                "featureType": "all",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "saturation": 36
-                    },
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 40
-                    }
-                ]
-            },
-            {
-                "featureType": "all",
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "visibility": "on"
-                    },
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 16
-                    }
-                ]
-            },
-            {
-                "featureType": "all",
-                "elementType": "labels.icon",
-                "stylers": [
-                    {
-                        "visibility": "off"
-                    }
-                ]
-            },
-            {
-                "featureType": "administrative",
-                "elementType": "geometry.fill",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 20
-                    }
-                ]
-            },
-            {
-                "featureType": "administrative",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 17
-                    },
-                    {
-                        "weight": 1.2
-                    }
-                ]
-            },
-            {
-                "featureType": "landscape",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 20
-                    }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 21
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "geometry.fill",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 17
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 29
-                    },
-                    {
-                        "weight": 0.2
-                    }
-                ]
-            },
-            {
-                "featureType": "road.arterial",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 18
-                    }
-                ]
-            },
-            {
-                "featureType": "road.local",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 16
-                    }
-                ]
-            },
-            {
-                "featureType": "transit",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 19
-                    }
-                ]
-            },
-            {
-                "featureType": "water",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    },
-                    {
-                        "lightness": 17
-                    }
-                ]
-            }
+  render() {
+    const darkStyle = [
+      {
+        featureType: "all",
+        elementType: "labels.text.fill",
+        stylers: [
+          {
+            saturation: 36
+          },
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 40
+          }
         ]
+      },
+      {
+        featureType: "all",
+        elementType: "labels.text.stroke",
+        stylers: [
+          {
+            visibility: "on"
+          },
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 16
+          }
+        ]
+      },
+      {
+        featureType: "all",
+        elementType: "labels.icon",
+        stylers: [
+          {
+            visibility: "off"
+          }
+        ]
+      },
+      {
+        featureType: "administrative",
+        elementType: "geometry.fill",
+        stylers: [
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 20
+          }
+        ]
+      },
+      {
+        featureType: "administrative",
+        elementType: "geometry.stroke",
+        stylers: [
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 17
+          },
+          {
+            weight: 1.2
+          }
+        ]
+      },
+      {
+        featureType: "landscape",
+        elementType: "geometry",
+        stylers: [
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 20
+          }
+        ]
+      },
+      {
+        featureType: "poi",
+        elementType: "geometry",
+        stylers: [
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 21
+          }
+        ]
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry.fill",
+        stylers: [
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 17
+          }
+        ]
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry.stroke",
+        stylers: [
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 29
+          },
+          {
+            weight: 0.2
+          }
+        ]
+      },
+      {
+        featureType: "road.arterial",
+        elementType: "geometry",
+        stylers: [
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 18
+          }
+        ]
+      },
+      {
+        featureType: "road.local",
+        elementType: "geometry",
+        stylers: [
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 16
+          }
+        ]
+      },
+      {
+        featureType: "transit",
+        elementType: "geometry",
+        stylers: [
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 19
+          }
+        ]
+      },
+      {
+        featureType: "water",
+        elementType: "geometry",
+        stylers: [
+          {
+            color: "#000000"
+          },
+          {
+            lightness: 17
+          }
+        ]
+      }
+    ];
 
-        const worldMarkers = this.state.worldCapitals.map((marker, i) => {
-            const mark = {
-                position: {
-                    lat: parseFloat(marker.CapitalLatitude),
-                    lng: parseFloat(marker.CapitalLongitude)
-                },
-                country: marker.CountryName,
-                title: marker.CapitalName,
-                showInfo: this.state.showInfo,
-                id: marker.CapitalName
-            }
-            return <MyMapMarker key={i}
-                {...mark}
-                displayContent={this.props.displayContent}
-            />
-        });
+    const worldMarkers = this.state.worldCapitals.map((marker, i) => {
+      const mark = {
+        position: {
+          lat: parseFloat(marker.CapitalLatitude),
+          lng: parseFloat(marker.CapitalLongitude)
+        },
+        country: marker.CountryName,
+        title: marker.CapitalName,
+        showInfo: this.state.showInfo,
+        id: marker.CapitalName
+      };
+      return (
+        <MyMapMarker
+          key={i}
+          {...mark}
+          displayContent={this.props.displayContent}
+        />
+      );
+    });
 
-        return (
-            <GoogleMap
-                defaultZoom={this.props.zoom}
-                defaultCenter={this.props.center}
-                defaultOptions={{ styles: darkStyle }}
-            >
-                {worldMarkers}
-            </GoogleMap>
-        )
-    }
+    return (
+      <GoogleMap
+        defaultZoom={this.props.zoom}
+        defaultCenter={this.props.center}
+        defaultOptions={{ styles: darkStyle }}
+      >
+        {worldMarkers}
+      </GoogleMap>
+    );
+  }
 }
 
 export default withGoogleMap(MyMapComponent);

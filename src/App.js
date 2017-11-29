@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import country_capitals from './country_capitals.json'
-import MyMapComponent from './components/MyMapComponent/MyMapComponent.js';
-import BigWindowComponent from './components/BigWindowComponent/BigWindowComponent';
-import './sass/App.css';
+import React, { Component } from "react";
+import country_capitals from "./country_capitals.json";
+import MyMapComponent from "./components/MyMapComponent/MyMapComponent.js";
+import BigWindowComponent from "./components/BigWindowComponent/BigWindowComponent";
+import "./sass/App.css";
 
 class App extends Component {
   state = {
@@ -33,12 +33,11 @@ class App extends Component {
     this.setState({ showMoreWeather: false });
   };
 
-  onDropDownSelected = (name, lat, lng, dayCast) => {
-    this.showMeMore([dayCast], name, lat, lng);
-  }
+  onDropDownSelected = (name, lat, lng, dayForeCast) => {
+    this.showMeMore(dayForeCast, name, lat, lng);
+  };
 
   render() {
-   
     return (
       <div className="App">
         <MyMapComponent
@@ -50,11 +49,11 @@ class App extends Component {
         />
 
         {this.state.showMoreWeather ? (
-          <BigWindowComponent 
-          {...this.state.bigWindow}
-          hideWindow={this.hideWindow}
-          selected={this.onDropDownSelected}
-            />
+          <BigWindowComponent
+            {...this.state.bigWindow}
+            hideWindow={this.hideWindow}
+            selected={this.onDropDownSelected}
+          />
         ) : null}
       </div>
     );

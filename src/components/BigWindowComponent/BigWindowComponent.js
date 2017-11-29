@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import ForecastContent from "../ForecastContent/ForecastContent";
 import FiveDayForecastLoader from "../FiveDayForecastLoader/FiveDayForecastLoader";
 import CapitalDropDown from "../CapitalDropDown/CapitalDropDown";
 
-
 class BigWindowComponent extends Component {
-  state = {
-
-  };
+  state = {};
 
   renderDailyContent = () => {
+    console.log(this.props);
     return this.props.dailyForecast.map((day, i) => (
       <ForecastContent
         key={i}
@@ -24,8 +22,6 @@ class BigWindowComponent extends Component {
     ));
   };
 
-
-
   render() {
     return (
       <div className="addInfo" id="capital">
@@ -33,7 +29,11 @@ class BigWindowComponent extends Component {
           <CapitalDropDown selected={this.props.selected} />
 
           <div className="btnDiv">
-            <a aria-label="Close" onClick={this.props.hideWindow} className="backBtn">
+            <a
+              aria-label="Close"
+              onClick={this.props.hideWindow}
+              className="backBtn"
+            >
               <h5>[&times;]</h5>
             </a>
           </div>
@@ -42,7 +42,7 @@ class BigWindowComponent extends Component {
         <div className="weatherDiv">{this.renderDailyContent()}</div>
 
         <div className="forecastDiv">
-          <FiveDayForecastLoader lat={this.state.lat} lng={this.state.lng} />
+          <FiveDayForecastLoader lat={this.props.lat} lng={this.props.lng} />
         </div>
       </div>
     );
