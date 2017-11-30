@@ -1,17 +1,20 @@
 import React, { Component } from "react";
-import { withGoogleMap, GoogleMap } from "react-google-maps";
-import country_capitals from "../../country_capitals.json";
 import MyMapMarker from "../MyMapMarker/MyMapMarker";
+import country_capitals from "../../country_capitals.json";
+import { withGoogleMap, GoogleMap } from "react-google-maps";
+const {
+  MarkerClusterer
+} = require("react-google-maps/lib/components/addons/MarkerClusterer");
 
 class MyMapComponent extends Component {
   state = {
     showInfo: false,
     worldCapitals: [],
     showMore: false
-    /* allMyMarkers: [] */
   };
 
   componentDidMount() {
+    //console.log(GoogleMap);
     this.setState({ worldCapitals: country_capitals });
   }
 
@@ -184,6 +187,16 @@ class MyMapComponent extends Component {
       }
     ];
 
+    const iconStyle = {
+      path:
+        "M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z",
+      fillColor: "#949FA0",
+      fillOpacity: 0.5,
+      strokeColor: "#949FA0",
+      strokeWeight: 1,
+      scale: 0.5
+    };
+
     const worldMarkers = this.state.worldCapitals.map((marker, i) => {
       const mark = {
         position: {
@@ -193,24 +206,35 @@ class MyMapComponent extends Component {
         country: marker.CountryName,
         title: marker.CapitalName,
         showInfo: this.state.showInfo,
-        id: marker.CapitalName
+        id: marker.CapitalName,
+        icon: iconStyle,
+        map_icon_label:
+          '<span className="map-icon map-icon-postal-code"></span>'
       };
       return (
         <MyMapMarker
           key={i}
           {...mark}
           displayContent={this.props.displayContent}
+          noInfoWindows={this.props.noInfoWindows}
         />
       );
     });
 
     return (
       <GoogleMap
-        defaultZoom={this.props.zoom}
-        defaultCenter={this.props.center}
+        zoom={this.props.zoom}
+        center={this.props.center}
         defaultOptions={{ styles: darkStyle }}
       >
-        {worldMarkers}
+        <MarkerClusterer
+          onClick={this.props.onMarkerClustererClick}
+          averageCenter
+         /*  enableRetinaIcons */
+          gridSize={40}
+        >
+          {worldMarkers}
+        </MarkerClusterer>
       </GoogleMap>
     );
   }

@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { withGoogleMap, GoogleMap } from "react-google-maps";
 import country_capitals from "../../country_capitals.json";
-import weatherfetching, {
-  getWeatherFromAPI
-} from "../../lib/weatherfetching.js";
+import weatherfetching, { getWeatherFromAPI } from "../../lib/weatherfetching.js";
 
 class CapitalDropDown extends Component {
   state = {};
@@ -14,12 +11,10 @@ class CapitalDropDown extends Component {
 
   populateDropDown = () => {
     let marks = [];
-    //console.log(this.state.allMyMarkers)
     var sortedMarkers = this.state.allMyMarkers.sort(function(a, b) {
       return a.CapitalName.localeCompare(b.CapitalName);
     });
-    //console.log(sortedMarkers);
-
+   
     sortedMarkers.map((m, i) =>
       marks.push(
         <option key={i} value={m.CapitalName}>

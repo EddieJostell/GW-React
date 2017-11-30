@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import ForecastContent from "../ForecastContent/ForecastContent";
-import FiveDayForecastLoader from "../FiveDayForecastLoader/FiveDayForecastLoader";
 import CapitalDropDown from "../CapitalDropDown/CapitalDropDown";
+import FiveDayForecastLoader from "../FiveDayForecastLoader/FiveDayForecastLoader";
 
 class BigWindowComponent extends Component {
   state = {};
 
   renderDailyContent = () => {
-    console.log(this.props);
     return this.props.dailyForecast.map((day, i) => (
       <ForecastContent
         key={i}

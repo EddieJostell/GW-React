@@ -1,8 +1,8 @@
+import sweden from "../../sweden.json";
 import React, { Component } from "react";
+import forecast_sthlm from "../../forecast_sthlm.json";
 import { Marker, InfoWindow } from "react-google-maps";
 import InfoWindowContent from "../InfoWindowContent/InfoWindowContent";
-import sweden from "../../sweden.json";
-import forecast_sthlm from "../../forecast_sthlm.json";
 import weatherfetching, {
   getWeatherFromAPI
 } from "../../lib/weatherfetching.js";
@@ -14,7 +14,7 @@ class MyMapMarker extends Component {
     dailyForecast: []
   };
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(newProps) {
     if (this.state.showInfo) {
       this.setState({ showInfo: false }, () =>
         this.setState({ showInfo: true })
@@ -48,14 +48,20 @@ class MyMapMarker extends Component {
 
   toggleShowInfo = () => {
     //this.getWeatherFromAPI();
+    console.log("toggledOn");
+    if(this.props.noInfoWindows === true) {
+       this.setState({ showInfo: !this.state.showInfo });
+    }
     this.setState({ showInfo: !this.state.showInfo });
   };
 
   closeInfo = () => {
+    console.log("toggledOff");
     this.setState({ showInfo: false });
   };
 
   render() {
+      console.log(this.props.noInfoWindows)
     const weather = this.state.currentWeather.map((w, i) => (
       <InfoWindowContent
         key={i}
@@ -68,28 +74,30 @@ class MyMapMarker extends Component {
         wicon={w.weather[0].id}
       />
     ));
+
     return (
       <Marker onClick={this.toggleShowInfo} {...this.props}>
-        {this.state.showInfo && (
-          <InfoWindow onCloseClick={this.closeInfo}>
-            <div>
-              <a
-                className="title"
-                onClick={() =>
-                  this.props.displayContent(
-                    this.state.dailyForecast,
-                    this.props.title,
-                    this.props.position.lat,
-                    this.props.position.lng
-                  )
-                }
-              >
-                <h3>{this.props.title}-CLICK ME"</h3>
-              </a>
-              {weather}
-            </div>
-          </InfoWindow>
-        )}
+        {!this.props.noInfoWindows &&
+          this.state.showInfo && (
+            <InfoWindow onCloseClick={this.closeInfo}>
+              <div>
+                <a
+                  className="title"
+                  onClick={() =>
+                    this.props.displayContent(
+                      this.state.dailyForecast,
+                      this.props.title,
+                      this.props.position.lat,
+                      this.props.position.lng
+                    )
+                  }
+                >
+                  <h3>{this.props.title}</h3>
+                </a>
+                {weather}
+              </div>
+            </InfoWindow>
+          )}
       </Marker>
     );
   }

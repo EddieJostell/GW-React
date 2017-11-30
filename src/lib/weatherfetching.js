@@ -7,17 +7,7 @@ export const getWeatherFromAPI = (lat, lng) => {
   return fetch(weather)
     .then(response => response.json())
     .then(data => {
-     console.log([data]);
       return [data];
-
-      //We need to create a new InfoWindow because of this https://github.com/tomchentw/react-google-maps/issues/696
-   /*    this.setState({ showInfo: false }, () =>
-        this.setState({
-          showInfo: true,
-          currentWeather: wData,
-          dailyForecast: wData
-        })
-      ); */
     })
 };
 
