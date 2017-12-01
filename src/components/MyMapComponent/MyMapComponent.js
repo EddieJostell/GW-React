@@ -14,11 +14,12 @@ class MyMapComponent extends Component {
   };
 
   componentDidMount() {
-    //console.log(GoogleMap);
+   
     this.setState({ worldCapitals: country_capitals });
   }
 
   render() {
+
     const darkStyle = [
       {
         featureType: "all",

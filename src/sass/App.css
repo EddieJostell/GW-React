@@ -103,7 +103,20 @@
       left: 25px; } }
   @media screen and (max-width: 855px) {
     .addInfo {
-      width: calc(100% - 50px); } }
+      width: calc(100% - 50px); }
+      .addInfo .forecast-h1 {
+        font-size: 13px; }
+      .addInfo .forecast-h2 {
+        font-size: 12px; }
+      .addInfo .fiveday-h4 {
+        font-size: 10px; }
+      .addInfo .img {
+        width: 16px;
+        height: 16px; }
+      .addInfo .img1 {
+        max-width: 100%;
+        width: 10px;
+        height: 10px; } }
   .addInfo .flexme {
     width: 100%;
     display: flex;

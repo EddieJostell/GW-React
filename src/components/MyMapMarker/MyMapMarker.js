@@ -25,7 +25,8 @@ class MyMapMarker extends Component {
   componentDidMount() {
     this.setState({
       currentWeather: sweden,
-      dailyForecast: sweden
+      dailyForecast: sweden,
+      noInfoWindows: this.props.noInfoWindows
     });
   }
 
@@ -47,21 +48,17 @@ class MyMapMarker extends Component {
   };
 
   toggleShowInfo = () => {
-    //this.getWeatherFromAPI();
-    console.log("toggledOn");
-    if(this.props.noInfoWindows === true) {
-       this.setState({ showInfo: !this.state.showInfo });
-    }
-    this.setState({ showInfo: !this.state.showInfo });
+    this.getWeatherFromAPI();
+    this.setState({
+      showInfo: !this.state.showInfo
+    });
   };
 
   closeInfo = () => {
-    console.log("toggledOff");
     this.setState({ showInfo: false });
   };
 
   render() {
-      console.log(this.props.noInfoWindows)
     const weather = this.state.currentWeather.map((w, i) => (
       <InfoWindowContent
         key={i}
@@ -88,7 +85,8 @@ class MyMapMarker extends Component {
                       this.state.dailyForecast,
                       this.props.title,
                       this.props.position.lat,
-                      this.props.position.lng
+                      this.props.position.lng,
+                      this.state.showInfo
                     )
                   }
                 >

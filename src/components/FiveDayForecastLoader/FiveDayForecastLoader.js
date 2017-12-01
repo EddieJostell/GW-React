@@ -10,10 +10,10 @@ class FiveDayForecastLoader extends Component {
     if (this.props.lat === newProps.lat && this.props.lng === newProps.lng) {
       return;
     }
-    //this.executeGetFiveDay(newProps);
+    this.executeGetFiveDay(newProps);
   }
   componentDidMount() {
-    //this.executeGetFiveDay(this.props);
+    this.executeGetFiveDay(this.props);
   }
   executeGetFiveDay = loadFromProps => {
     this.setState({ fiveDayForecast: [] });

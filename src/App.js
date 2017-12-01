@@ -12,7 +12,6 @@ class App extends Component {
     zoomLevel: 5,
     center: { lat: 52.520007, lng: 13.404954 },
     noInfoWindows: false
-
   };
 
   componentDidMount() {}
@@ -32,15 +31,19 @@ class App extends Component {
   };
 
   hideWindow = () => {
-    console.log("Hide Big Window");
     this.setState({ showMoreWeather: false });
   };
 
   onDropDownSelected = (name, lat, lng, dayForeCast) => {
-    console.log("Toggled DropDown");
-    console.log(lat, lng, name);
     this.showMeMore(dayForeCast, name, lat, lng);
-    this.setState({ noInfoWindows: true }), this.setState({ center: { lat: lat, lng: lng }, zoomLevel: 8, noInfoWindows: false });
+    this.setState({
+      noInfoWindows: true
+    }),
+      this.setState({
+        center: { lat: lat, lng: lng },
+        zoomLevel: 6,
+        noInfoWindows: false
+      });
   };
 
   render() {
@@ -49,7 +52,6 @@ class App extends Component {
         <MyMapComponent
           center={this.state.center}
           zoom={this.state.zoomLevel}
-       
           containerElement={<div style={{ height: "auto", width: "100%" }} />}
           mapElement={<div style={{ height: "100vh", width: "100vw" }} />}
           displayContent={this.showMeMore}

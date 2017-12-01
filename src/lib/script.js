@@ -1,5 +1,5 @@
 
-function showHidePopup() {
+export const showHidePopup = () => {
 
     $(document).mouseup(function (e) {
         var container = $(".window");
