@@ -41,7 +41,7 @@ class App extends Component {
     }),
       this.setState({
         center: { lat: lat, lng: lng },
-        zoomLevel: 6,
+        zoomLevel: 7,
         noInfoWindows: false
       });
   };
